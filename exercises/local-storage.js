@@ -41,12 +41,14 @@
 
 const notFav = 'false';
 const fav = 'true';
+const cardsContainer = document.querySelector('.cardsContainer');
 const cards = document.querySelectorAll('.card');
 
-
 const makeFav = () => {
-  cards.forEach((card, index) => {
-    card.addEventListener('click', () => {
+  cardsContainer.addEventListener('click', (selected) => {
+    const card = selected.target;
+    if (card.classList.contains('card')) {
+      const index = card.id - 1;
       if (card.dataset.fav === notFav) {
         card.dataset.fav = 'true';
         card.classList.add('red');
@@ -56,7 +58,7 @@ const makeFav = () => {
         card.classList.remove('red');
         localStorage.setItem(`card-${index}`, notFav);
       }
-    })
+    }
   })
 }
 
