@@ -12,6 +12,7 @@
  */
 
 // Your code goes here...
+const allItems = document.getElementsByClassName('item');
 
 
 
@@ -23,6 +24,7 @@
  */
 
 // Your code goes here...
+const sortBtn = document.getElementsByClassName('sortBtn');
 
 
 
@@ -38,7 +40,15 @@
  */
 
 // Your code goes here...
+const itemsArr = Array.from(allItems);
 
+const sortData = (sortBtn) => {
+  if (sortBtn === 'desc') {
+    itemsArr.sort((a, b) => b.id - a.id);
+  } else {
+    itemsArr.sort((a, b) => a.id - b.id);
+  }
+}
 
 
 /**
@@ -50,5 +60,16 @@
  */
 
 // Your code goes here...
+const sortBtnArr = Array.from(sortBtn);
 
+sortBtnArr.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const desc = btn.dataset.sortdir === 'desc' ? 'desc' : 'asc';
+    sortData(desc);
+    
+    itemsArr.forEach((item) => {
+      main.append(item);
+    })
+  })
+})
 

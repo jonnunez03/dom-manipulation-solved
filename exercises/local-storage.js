@@ -38,3 +38,40 @@
  */
 
 // Your code goes here...
+
+const notFav = 'false';
+const fav = 'true';
+const cards = document.querySelectorAll('.card');
+
+
+const makeFav = () => {
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      if (card.dataset.fav === notFav) {
+        card.dataset.fav = 'true';
+        card.classList.add('red');
+        localStorage.setItem(`card-${index}`, fav);
+      } else {
+        card.dataset.fav = notFav;
+        card.classList.remove('red');
+        localStorage.setItem(`card-${index}`, notFav);
+      }
+    })
+  })
+}
+
+const favSaved = () => {
+  cards.forEach((card, index) => {
+    if (localStorage.getItem(`card-${index}`) === fav) {
+      card.dataset.fav = fav;
+      card.classList.add('red');
+    } else {
+      card.dataset.fav = notFav;
+      card.classList.remove('red');
+    }
+  })
+}
+
+makeFav();
+favSaved();
+

@@ -12,6 +12,8 @@
  */
 
 // Your code goes here...
+const allItems = document.querySelectorAll('.item');
+
 
 
 
@@ -23,6 +25,8 @@
  * */
 
 // Your code goes here
+const mainContainer = document.getElementById('main');
+
 
 
 
@@ -34,6 +38,7 @@
  */
 
 // Your code goes here
+const favs = document.getElementById('favs');
 
 
 
@@ -47,6 +52,23 @@
  */
 
 // Your code goes here
+const itemsArr = Array.from(allItems);
+
+const updateFavs = (id, direction) => {
+  const item = itemsArr.find(item => item.id === id); 
+  if (!item) return; 
+
+  const icon = item.firstElementChild;
+
+    if (direction === 'toFavs' && item.parentElement === mainContainer) {
+      icon.classList.replace('fa-heart-circle-plus', 'fa-heart-crack');
+      favs.append(item);
+    } else if (direction === 'toMain' && item.parentElement === favs) {
+      icon.classList.replace('fa-heart-crack', 'fa-heart-circle-plus');
+      mainContainer.append(item);
+    }
+}
+
 
 
 
@@ -66,4 +88,11 @@
 
 // Your code goes here...
 
+itemsArr.forEach((item) => {
+  
+  item.addEventListener('click', () => {
+    const direction = item.parentElement.id === mainContainer.id ? 'toFavs' : 'toMain';
+    updateFavs(item.id, direction);
+  })
+})
 
